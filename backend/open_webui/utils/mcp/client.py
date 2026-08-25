@@ -119,8 +119,12 @@ class MCPClient:
 
         if result.isError:
             raise Exception(result_content)
-        else:
-            return result_content
+
+        structured_content = result_dict.get('structuredContent')
+        if structured_content is not None:
+            return structured_content
+
+        return result_content
 
     async def list_resources(self, cursor: Optional[str] = None) -> Optional[dict]:
         if not self.session:
